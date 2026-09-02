@@ -17,3 +17,22 @@ Claude Cookbooks (formerly anthropic-cookbook) (https://github.com/anthropics/cl
 
 ---
 
+# Day 02/100: Structured Outputs: Pydantic ⇄ TypeScript
+
+**Date:** 2026-09-01
+
+## Summary
+What it is: Instead of letting an LLM return free-form text, you constrain its output to match a JSON Schema — guaranteeing a parseable, type-correct response every time. Pydantic (Python) and Zod (TypeScript) are the two main tools for defining that schema and validating data against it.
+
+Pydantic (Python): Define a schema as a class; Pydantic auto-generates the JSON Schema and validates/parses raw LLM output into a typed object, raising an error on mismatch. Used directly as an Anthropic/OpenAI tool-call schema via model_json_schema().
+
+Zod (TypeScript): TS types vanish at runtime, so they can't validate incoming data alone — Zod adds runtime validation, and TS types are inferred from the Zod schema (z.infer<...>), keeping one source of truth.
+
+Key takeaway: enforce the schema at the boundary (right after the LLM call), not deep in application logic — catch malformed data at the source.
+
+## References
+Pydantic JSON Schema docs: https://docs.pydantic.dev/latest/concepts/json_schema/
+Zod docs : [Zod docs](https://zod.dev/)
+LangChain structured output guide : https://docs.langchain.com/oss/python/langchain/structured-output
+
+----
