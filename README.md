@@ -63,6 +63,8 @@ https://github.com/instructor-ai/instructor
 
 # Day 04/100: Tokenomics & Cost Optimization — understanding how LLM usage translates into cost and latency, and the techniques to control both.
 
+**Date:** 2026-09-03
+
 ## Summary
 Context window management: The context window is the max number of tokens (input + output) a model can process in one call. Bigger context = more cost and slower responses, so the skill is trimming what you send — summarizing prior conversation turns, retrieving only the most relevant chunks (this is where RAG comes in), and truncating/compressing long documents instead of dumping everything in.
 Tokenizer math: Tokens aren't words — roughly 4 characters ≈ 1 token in English (varies by model/language). Since pricing is per-token (input and output priced differently, output usually costs more), estimating token counts before sending a request lets you predict cost and avoid hitting context limits. Libraries like tiktoken (OpenAI) let you count tokens programmatically before a call.
