@@ -35,4 +35,26 @@ Pydantic JSON Schema docs: https://docs.pydantic.dev/latest/concepts/json_schema
 Zod docs : [Zod docs](https://zod.dev/)
 LangChain structured output guide : https://docs.langchain.com/oss/python/langchain/structured-output
 
+
 ----
+
+# Day 03/100: Typesafe AI Pipelines: Using libraries like Instructor or BAML for type guarantees.
+
+**Date:** 2026-09-02
+
+## Summary
+Typesafe AI pipelines = making LLM outputs behave like normal typed function returns instead of raw, unpredictable strings — so a bad/malformed response gets caught and retried instead of silently breaking your app.
+
+Instructor (Python + Pydantic): You define a Pydantic model as the expected output shape. It patches your LLM client so calls return a real Pydantic object, and auto-retries with the validation error if the model gets it wrong. Low effort, drops right into an existing Python/LangChain stack.
+BAML (a full DSL from Boundary): You write .baml files declaring the function's input, output type, and prompt. It compiles to type-safe client code in Python/TS/Ruby/etc. Calling an LLM feels like calling a normal typed function. More setup, but better parsing resilience and treats prompts as versioned, testable artifacts.
+
+Bottom line: Instructor = quick, lightweight structured outputs for Python projects. BAML = heavier but more robust/production-grade approach when prompts and types need to be first-class, multi-language artifacts.
+
+For your RAG portfolio project, Instructor is the easier add-on; BAML is a good "I understand production LLM engineering" talking point for interviews.
+
+## References
+https://docs.boundaryml.com/
+https://github.com/instructor-ai/instructor
+
+---------
+
