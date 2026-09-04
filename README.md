@@ -50,7 +50,7 @@ BAML (a full DSL from Boundary): You write .baml files declaring the function's 
 
 Bottom line: Instructor = quick, lightweight structured outputs for Python projects. BAML = heavier but more robust/production-grade approach when prompts and types need to be first-class, multi-language artifacts.
 
-For your RAG portfolio project, Instructor is the easier add-on; BAML is a good "I understand production LLM engineering" talking point for interviews.
+
 
 ## References
 https://docs.boundaryml.com/
@@ -58,3 +58,24 @@ https://github.com/instructor-ai/instructor
 
 ---------
 
+
+
+
+# Day 04/100: Tokenomics & Cost Optimization — understanding how LLM usage translates into cost and latency, and the techniques to control both.
+
+## Summary
+Context window management: The context window is the max number of tokens (input + output) a model can process in one call. Bigger context = more cost and slower responses, so the skill is trimming what you send — summarizing prior conversation turns, retrieving only the most relevant chunks (this is where RAG comes in), and truncating/compressing long documents instead of dumping everything in.
+Tokenizer math: Tokens aren't words — roughly 4 characters ≈ 1 token in English (varies by model/language). Since pricing is per-token (input and output priced differently, output usually costs more), estimating token counts before sending a request lets you predict cost and avoid hitting context limits. Libraries like tiktoken (OpenAI) let you count tokens programmatically before a call.
+Caching strategies: Avoid re-processing/re-paying for repeated content.
+Prompt caching (offered by OpenAI, Anthropic, etc.): if the same long system prompt or document prefix is reused across calls, the provider caches it server-side and charges a fraction of the price for the cached portion.
+Semantic caching: store past query→response pairs (often in a vector DB) and reuse the response if a new query is semantically similar, skipping the LLM call entirely.
+Response caching: simple key-value caching for identical repeated requests.
+
+Bottom line: cost optimization = send only the tokens you need, know how to count them in advance, and reuse computation (via caching) instead of re-paying for the same context repeatedly.
+
+## References
+https://github.com/openai/tiktoken
+https://platform.openai.com/tokenizer
+https://platform.openai.com/docs/guides/prompt-caching
+
+-------------
